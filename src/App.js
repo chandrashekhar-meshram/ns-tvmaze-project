@@ -9,6 +9,7 @@ function App() {
   const [searchString, setSearchString] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const notfound = 'https://png.pngtree.com/png-clipart/20200225/original/pngtree-error-page-not-found-concept-illustration-flat-design-with-people-this-png-image_5276232.jpg';
 
   useEffect(() => {
     getSearchResults();
@@ -80,8 +81,28 @@ function App() {
 
         {
           (type === 'people') 
-            ? ( <Actor data={searchResults} /> ) 
-            : ( <Show data={searchResults} /> )
+            ? (
+              searchResults.map((result, index) => ( 
+                <Actor
+                  key={index}
+                  imageUrl={result?.person?.image?.medium || notfound}
+                  name={result?.person?.name}
+                  //description={result.show.summary}
+                  //rating={result.show.rating.average}
+                />
+              ))
+             ) 
+            : ( 
+              searchResults.map((result, index) => (
+                <Show
+                  key={result?.show?.id || index}
+                  imageUrl={result?.show?.image?.medium || notfound}
+                  name={result?.show?.name}
+                  description={result?.show?.summary}
+                  rating={result?.show?.rating?.average}
+                />
+              ))
+            )
         }
 
       </div>
