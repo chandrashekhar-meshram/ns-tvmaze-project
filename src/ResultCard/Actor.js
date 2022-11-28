@@ -3,13 +3,11 @@ import "./style.css";
 const Actor = (props) => {
     const { imageUrl, name} = props;
 
-    const notfound = 'https://png.pngtree.com/png-clipart/20200225/original/pngtree-error-page-not-found-concept-illustration-flat-design-with-people-this-png-image_5276232.jpg';
-
     return (
       <div className="card-wrapper">
         <img className="card-image" src={imageUrl} alt="Card cover" />
         <div className="bottom-container">
-          <h6>{name}</h6>
+          <h6>Name: {name}</h6>
 
           {/* <div
             dangerouslySetInnerHTML={{
@@ -17,7 +15,7 @@ const Actor = (props) => {
             }}
           />
           <div>{rating}</div> */}
-          
+
         </div>
       </div>
     );

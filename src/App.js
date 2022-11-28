@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-//import ResultCard from "./ResultCard/ResultCard";
 import Show from "./ResultCard/Show";
 import Actor from "./ResultCard/Actor";
+import spinner from './spinner.gif'
 
 function App() {
   const [type, setType] = useState("");
@@ -42,69 +42,77 @@ function App() {
     setSearchString(event.target.value);
   };
 
+
   return (
     <div className="wrapper">
-      <div className="grey-container">
-        <h1>TVmaze</h1>
-        <h2>Search your favorite shows</h2>
+      <div className="backImg">
+        <div className="grey-container">
+          <h1>TVmaze</h1>
+          <h2>Search your favorite shows</h2>
 
-        <input
-          type="radio"
-          id="actor"
-          name="type"
-          checked={type === "people"}
-          onChange={onActorChange}
-        />
-        <label htmlFor="actor">Actor</label>
-
-        <input
-          type="radio"
-          id="shows"
-          name="type"
-          checked={type === "shows"}
-          onChange={onShowsChange}
-        />
-        <label htmlFor="shows">Shows</label>
-
-        <div className="input-wrapper">
           <input
-            placeholder="eg. Friends..."
-            value={searchString}
-            onChange={onSearchChange}
+            type="radio"
+            id="actor"
+            name="type"
+            checked={type === "people"}
+            onChange={onActorChange}
           />
-        </div>
-        {isLoading && <div className="loader">Loading...</div>}
-        {searchResults.length === 0 && (
-          <div className="no-results">No results found</div>
+          <label htmlFor="actor">Actor</label>
+          <span/> <span/>
+
+          <input
+            type="radio"
+            id="shows"
+            name="type"
+            checked={type === "shows"}
+            onChange={onShowsChange}
+          />
+          <label htmlFor="shows">Shows</label>
+
+          <div className="input-wrapper">
+            <input
+              placeholder="eg. Friends..."
+              value={searchString}
+              onChange={onSearchChange}
+            />
+          </div>
+          
+          {isLoading && <div className="loader">
+            <img src={spinner} alt='Loding...' />
+          </div>}
+
+          {searchResults.length === 0 && (
+          <span className="no-results">No results found</span>
         )}
-        <br/>
 
-        {
-          (type === 'people') 
-            ? (
-              searchResults.map((result, index) => ( 
-                <Actor
-                  key={index}
-                  imageUrl={result?.person?.image?.medium || notfound}
-                  name={result?.person?.name}
-                  //description={result.show.summary}
-                  //rating={result.show.rating.average}
-                />
-              ))
-             ) 
-            : ( 
-              searchResults.map((result, index) => (
-                <Show
-                  key={result?.show?.id || index}
-                  imageUrl={result?.show?.image?.medium || notfound}
-                  name={result?.show?.name}
-                  description={result?.show?.summary}
-                  rating={result?.show?.rating?.average}
-                />
-              ))
-            )
-        }
-
+        </div>
+        <div className='homepage__list'>
+          {
+            (type === 'people') 
+              ? (
+                searchResults.map((result, index) => ( 
+                  <Actor
+                    key={index}
+                    imageUrl={result?.person?.image?.medium || notfound}
+                    name={result?.person?.name}
+                    //description={result.show.summary}
+                    //rating={result.show.rating.average}
+                  />
+                ))
+              ) 
+              : ( 
+                searchResults.map((result, index) => (
+                  <Show
+                    key={result?.show?.id || index}
+                    imageUrl={result?.show?.image?.medium || notfound}
+                    name={result?.show?.name}
+                    description={result?.show?.summary}
+                    rating={result?.show?.rating?.average || "Not-found"}
+                  />
+                ))
+              )
+          }
+        </div>  
       </div>
     </div>
   );

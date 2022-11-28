@@ -1,12 +1,22 @@
-.card-wrapper {
+/* .card-wrapper {
     width: 200px;
-  }
+  } */
   
-  .card-image {
+  /* .card-image {
     width: 100%;
+    width: 210px;
+    height: 295px;
+    object-fit: cover;
   }
+
+  img{
+    width: 210px;
+    height: 295px;
+    object-fit: cover;
+  }
+   */
   
-  .bottom-container {
+  /* .bottom-container {
     background-color: darkgrey;
     padding: 4px;
-  }
+  } */
